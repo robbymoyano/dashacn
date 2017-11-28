@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cierre de Tickets</title>
+		<meta charset="UTF-8">
+		<script src="jquery-2.2.1.min.js"></script>
+
+		<script src="Highcharts-4/js/highcharts.js"></script>
+		<script src="Highcharts-4/js/highcharts-more.js"></script>
+		<script src="Highcharts-4/js/modules/exporting.js"></script>
+
+		<link href="dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+		<script src="dist/js/bootstrap.js"></script>
+		<meta name="viewport"
+			  content="width=device-width, initial-scale=1, maximum-scale=0.9">
+
+		<script src="js/getProyectos.js?v=0.251"></script>
+
+		<link type="text/css" rel="stylesheet" href="css/main.css?v=1.1">
+		<style>
+			#logo{
+				position: relative;
+				top:-14px;
+			}
+			#grafico{
+				width: 100%;
+				height: 430; /* 180 cargo fijo +  50 por banda= 250=430*/
+			}
+			.col-md-12{
+				padding: 0px !important;
+			}
+
+			body{
+				padding-top: 70px;
+			}
+
+
+		</style>
+		<script>
+			var subTitle;
+			var Categorias=[];
+			var dataAcumulado=[];
+			var dataManual=[];
+			var dataRobot=[];
+			
+			
+			$(document).ready(
+				function() {
+					getProyectos();
+				
+				});
+
+
+			function pintarGrafico(){
+				Highcharts.chart('container', {
+
+					chart: {
+						zoomType: 'xy'
+					},
+
+
+					plotOptions: {
+						series: {
+							cursor: 'pointer',
+							dataLabels: {
+								align: 'left',
+								enabled: true
+							},
+							point: {
+								events: {
+									click: function () {
+										// alert('Category: ' + this.category + ', value: ' + this.y);
+										//alert('Hola mundo');
+										window.open("grupos.html?dia=1","_self");
+									}
+								}
+							}
+						}},
+
+					title: {
+						text: 'Comportamiento de cierre de Tickets Plataformas CRM'
+					},
+					subtitle: {
+						text: subTitle
+					},
+					xAxis: [{
+						categories:Categorias,
+						crosshair: true
+					}],
+					yAxis: [{ // Primary yAxis
+						labels: {
+							format: '{value}',
+							style: {
+								color: Highcharts.getOptions().colors[1]
+							}
+						},
+						title: {
+							text: 'Acumulado',
+							style: {
+								color: Highcharts.getOptions().colors[1]
+							}
+						}
+					}, { // Secondary yAxis
+						title: {
+							text: 'Tickets diarios',
+							style: {
+								color: Highcharts.getOptions().colors[0]
+							}
+						},
+						labels: {
+							format: '{value}',
+							style: {
+								color: Highcharts.getOptions().colors[0]
+							}
+						},
+						opposite: true
+					}],
+					tooltip: {
+						shared: true
+					},
+					legend: {
+						layout: 'vertical',
+						align: 'left',
+						x: 120,
+						verticalAlign: 'top',
+						y: 100,
+						floating: true,
+						backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+					},
+					series: [{
+						name: 'Ticket por dia',
+						type: 'column',
+						yAxis: 1,
+						data: dataManual,
+						tooltip: {
+							valueSuffix: ''
+						}
+
+					}, {
+						name: 'Acumulado',
+						type: 'spline',
+						data: dataAcumulado,
+						tooltip: {
+							valueSuffix: ''
+						}
+					},
+
+					 {
+						 name: 'Robot',
+						 type: 'spline',
+						 data: dataRobot,
+						 tooltip: {
+							 valueSuffix: ''
+						 }
+					 }
+					]
+				});
+
+
+			}
+		</script>
+
+	</head>
+
+	<body>
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+							data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+							aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand"> 
+						<img src="imag/logo3.png" id="logo" class="icon-bar" width="130px">
+					</a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="index.html">Cierre de Tickets</a></li>
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="http://www.accenture.com" target="_blank">Powered by Accenture</a>
+						</li>
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+		</nav>
+
+
+		<div class="container">
+			<div class="row">
+				<!--
+				<div class="col-md-12">
+					
+					<div class="pull-right">
+						Desde <input type="date"> al <input type="date" class=""> &#160; <button class="refresh pull-right">Refrescar</button><br>
+					</div>
+
+				</div>-->
+				
+				<div class="col-md-12">
+					<div class="alert alert-danger hidden" id="alerta">
+						<h5>
+							<b>Error</b>
+						</h5> Ha ocurrido un error al extraer los datos.
+
+
+					</div>
+					<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+					
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>

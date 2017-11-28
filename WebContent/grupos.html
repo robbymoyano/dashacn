@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cierre de Tickets</title>
+		<meta charset="UTF-8">
+		<script src="jquery-2.2.1.min.js"></script>
+
+		<script src="Highcharts-4/js/highcharts.js"></script>
+		<script src="Highcharts-4/js/highcharts-more.js"></script>
+		<script src="Highcharts-4/js/modules/exporting.js"></script>
+
+		<link href="dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+		<script src="dist/js/bootstrap.js"></script>
+		<link href="css/docs.min.css" rel="stylesheet" type="text/css" />
+		<meta name="viewport"
+			  content="width=device-width, initial-scale=1, maximum-scale=0.9">
+
+		<script src="js/getProyectos.js?v=0.251"></script>
+
+		<link type="text/css" rel="stylesheet" href="css/main.css?v=1.1">
+		<style>
+			#logo{
+				position: relative;
+				top:-14px;
+			}
+			#grafico{
+				width: 100%;
+				height: 430; /* 180 cargo fijo +  50 por banda= 250=430*/
+			}
+			.col-md-12{
+				padding: 0px !important;
+			}
+
+			body{
+				padding-top: 70px;
+			}
+		</style>
+		
+		
+		<script>
+
+			$(document).ready(
+				function() {
+					pintarGrafico();
+					pintarCirculo('EU INM RESOLUTOR REPROCESO MASIVO');
+				});
+
+
+
+			function pintarGrafico(){
+				Highcharts.chart('container', {
+					chart: {
+						type: 'bar'
+					},
+					title: {
+						text: 'Cerrados por Grupo'
+					},
+					subtitle: {
+						text: '5 de Septiembre 2017'
+					},
+					xAxis: {
+						categories: ['EU INM RESOLUTOR REPROCESO MASIVO', 'EU PORTABILIDAD', 'EU OT_RESOLUTOR', 'EU SGA_RESOLUTOR', 'EU INM_RESOLUTOR','EU APLIC CRM MOVIL REQUERIMIENTO','EU DESA PLATAFORMAS COMERCIALES','EU SOPORTE HOGAR','EU APLIC CRM FIJA REQUERIMIENTO','EU DESA APLIC CRM FIJA','EU APLIC CRM FIJA INCIDENTE','EU DESA APLIC CRM FIJA CRITICA','EU APLIC CRM FIJA INCIDENTE CRITICA'],
+						title: {
+							text: null
+						}
+					},
+					yAxis: {
+						min: 0,
+						title: {
+							text: 'Tickets',
+							align: 'high'
+						},
+						labels: {
+							overflow: 'justify'
+						}
+					},
+					tooltip: {
+						valueSuffix: ' tickets'
+					},
+					
+					plotOptions: {
+						bar: {
+							dataLabels: {
+								enabled: true
+							}
+						},
+						series: {
+							
+							point: {
+								events: {
+									click: function () {
+										console.info('Category: ' + this.category + ', value: ' + this.y);
+										//alert('Hola mundo'+ this.category);
+										pintarCirculo(this.category);
+										//window.open("grupos.html?dia=1","_self");
+									}
+								}
+							}
+						}
+					},
+
+					credits: {
+						enabled: false
+					},
+					series: [{
+						name: '5 de Sept 2017',
+						data: [6,2,3,1,5,1,6,5,4,3,2,11,10]
+					}]
+				});
+			}
+
+			
+			
+			
+			function pintarCirculo(titulo){
+				Highcharts.chart('circle', {
+					chart: {
+						plotBackgroundColor: null,
+						plotBorderWidth: null,
+						plotShadow: false,
+						type: 'pie'
+					},
+					title: {
+						text: 'Top Casuísticas '+titulo
+					},
+					tooltip: {
+						pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+					},
+					plotOptions: {
+						pie: {
+							allowPointSelect: true,
+							cursor: 'pointer',
+							dataLabels: {
+								enabled: true,
+								format: '{point.y} tickets<br>{point.percentage:.1f} %',
+								style: {
+									color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+								}
+							},
+							showInLegend: true
+						}
+					},
+					series: [{
+						name: 'Brands',
+						colorByPoint: true,
+						data: [{
+							name: 'Canje error temporal - Cliente sin problemas',
+							y: 6
+						}, {
+							name: 'Paso a Prod - No genera OxC',
+							y: 24,
+							selected: true
+						}, {
+							name: 'Solucion de casos masivo',
+							y: 38
+						}, {
+							name: 'Error sin replicar',
+							y: 5
+						}, {
+							name: 'No creado en CRM',
+							y: 5
+						}, {
+							name: 'Otras',
+							y: 2
+						}]
+					}]
+				});
+
+
+
+			}
+		</script>
+
+	</head>
+
+	<body>
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+							data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+							aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand"> 
+						<img src="imag/logo3.png" id="logo" class="icon-bar" width="130px">
+					</a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="index.html">Cierre de Tickets</a></li>
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="http://www.accenture.com" target="_blank">Powered
+							by Accenture</a></li>
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+		</nav>
+
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-7">
+
+
+
+					<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+
+				</div>
+				<div class="col-md-5">
+					<div id="circle" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>
