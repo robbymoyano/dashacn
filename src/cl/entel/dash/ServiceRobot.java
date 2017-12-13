@@ -1,68 +1,71 @@
 package cl.entel.dash;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import cl.entel.dash.beans.GraficoMensual;
-import cl.entel.dash.beans.Salida2;
-import cl.entel.dash.dao.Conection;
-import cl.entel.dash.dao.impl.RoboticImpl;
-import cl.entel.dash.rest.impl.RunningRobotic;
+import org.apache.log4j.Logger;
+
+import cl.entel.dash.beans.GraficoCasuistica;
+import cl.entel.dash.beans.GraficoGruposDia;
+import cl.entel.dash.dao.impl.ConsultasDashboardImp;
 
 @Path("/dash")
 public class ServiceRobot {
+
+	Logger log = Logger.getLogger(ServiceRobot.class.getName());
+
 	@GET
-	
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	//@Path("/{idrobot}")
-	public Salida2 IniciaOperacion(@QueryParam("action") String action) {
-		GraficoMensual m = new GraficoMensual();
-		m.setCode("01");
-		m.setMsg("algo");
+	@Path("/grupos")
+	public List<GraficoGruposDia> GrabaOperacion(
+			@QueryParam("fecha") String fecha) {
+		log.info("inicio " + fecha);
+		List<GraficoGruposDia> lista = new ArrayList<GraficoGruposDia>();
+		try {
+			ConsultasDashboardImp i = new ConsultasDashboardImp();
+			lista = i.getGruposPorDia(1, "12-12-2017");
+		} catch (ClassNotFoundException e) {
+			log.error(e.getMessage());
+		} catch (SQLException e) {
+			log.error(e.getMessage());
+		}
+		return lista;
+	}
+
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	@Path("/grupos/{grupo}")
+	public List<GraficoCasuistica> ObtieneCasuisticas(
+			@PathParam("grupo") String grupo,
+			@QueryParam("fecha") String fecha) {
+		log.info("[Grupo " + grupo+"]|[Fecha "+fecha+"]");
+		List<GraficoCasuistica> lista = new ArrayList<GraficoCasuistica>();
 		
-		Salida2 s=new Salida2("02","hola mundo");
-		return s;
+
+		try {
+			ConsultasDashboardImp i = new ConsultasDashboardImp();
+			lista = i.getCasuisticas(grupo, "12-12-2017");
+		} catch (ClassNotFoundException e) {
+			log.error(e.getMessage());
+		} catch (SQLException e) {
+			log.error(e.getMessage());
+		}
+		return lista;
 	}
 
-	@POST
-	@Produces(MediaType.TEXT_XML)
-	@Path("/{idrobot}/{idrun}")
-	public GraficoMensual GrabaOperacion(@PathParam("idrobot") String idrobot,
-			@PathParam("idrun") String idrun, @QueryParam("step") String step,
-			@QueryParam("value") String value,
-			@QueryParam("result") String result) {
-		GraficoMensual m = new GraficoMensual();
-		m.setCode("01");
-		m.setMsg("algo");
-		return m;
-
-	}
-
-	@PUT
-	@Produces(MediaType.TEXT_XML)
-	@Path("/{idrobot}/{idrun}")
-	public GraficoMensual FinalizarRun(@PathParam("idrobot") String idrobot,
-			@PathParam("idrun") String idrun,
-			@QueryParam("action") String action) {
-
-		GraficoMensual m = new GraficoMensual();
-		m.setCode("01");
-		m.setMsg("algo");
-		return m;
-
-	}
-
+	
 	public static void main(String args[]) throws ClassNotFoundException,
 			SQLException {
-
+		
 	}
 
 }

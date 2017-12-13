@@ -23,6 +23,21 @@ public class Utilidades {
 	public static String directorio_properties;
 	public static PropertiesConfiguration properties = null;
 
+	
+	public static String getFechaActual(String formato) {
+		GregorianCalendar c = new GregorianCalendar();
+		XMLGregorianCalendar date2 = null;
+		String currentDate = null;
+		try {
+			date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+			SimpleDateFormat formatter = new SimpleDateFormat(formato);
+			currentDate = formatter.format(date2.toGregorianCalendar().getTime());
+		} catch (DatatypeConfigurationException e) {
+			e.printStackTrace();
+		}
+		return currentDate;
+	}
+	
 	public static XMLGregorianCalendar getFechaActual() {
 		GregorianCalendar c = new GregorianCalendar();
 		XMLGregorianCalendar date2 = null;

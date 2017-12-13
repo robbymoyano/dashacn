@@ -15,7 +15,8 @@
 		<meta name="viewport"
 			  content="width=device-width, initial-scale=1, maximum-scale=0.9">
 
-		<script src="js/getProyectos.js?v=0.251"></script>
+		<script src="js/getGruposDia.js"></script>
+		<script src="js/getCasuistica.js?v=0.1"></script>
 
 		<link type="text/css" rel="stylesheet" href="css/main.css?v=1.1">
 		<style>
@@ -35,17 +36,17 @@
 				padding-top: 70px;
 			}
 		</style>
-		
-		
-		<script>
 
+
+		<script>
+			var categories=[];
+			var data=[];
 			$(document).ready(
 				function() {
+					getGruposDias();
 					pintarGrafico();
-					pintarCirculo('EU INM RESOLUTOR REPROCESO MASIVO');
+					getCasuisticas(categories[0]);
 				});
-
-
 
 			function pintarGrafico(){
 				Highcharts.chart('container', {
@@ -56,10 +57,10 @@
 						text: 'Cerrados por Grupo'
 					},
 					subtitle: {
-						text: '5 de Septiembre 2017'
+						text: getFechaActual()
 					},
 					xAxis: {
-						categories: ['EU INM RESOLUTOR REPROCESO MASIVO', 'EU PORTABILIDAD', 'EU OT_RESOLUTOR', 'EU SGA_RESOLUTOR', 'EU INM_RESOLUTOR','EU APLIC CRM MOVIL REQUERIMIENTO','EU DESA PLATAFORMAS COMERCIALES','EU SOPORTE HOGAR','EU APLIC CRM FIJA REQUERIMIENTO','EU DESA APLIC CRM FIJA','EU APLIC CRM FIJA INCIDENTE','EU DESA APLIC CRM FIJA CRITICA','EU APLIC CRM FIJA INCIDENTE CRITICA'],
+						categories:categories,
 						title: {
 							text: null
 						}
@@ -77,7 +78,7 @@
 					tooltip: {
 						valueSuffix: ' tickets'
 					},
-					
+
 					plotOptions: {
 						bar: {
 							dataLabels: {
@@ -85,13 +86,14 @@
 							}
 						},
 						series: {
-							
+
 							point: {
 								events: {
 									click: function () {
 										console.info('Category: ' + this.category + ', value: ' + this.y);
 										//alert('Hola mundo'+ this.category);
-										pintarCirculo(this.category);
+										//pintarCirculo(this.category);
+										getCasuisticas(this.category);
 										//window.open("grupos.html?dia=1","_self");
 									}
 								}
@@ -103,72 +105,12 @@
 						enabled: false
 					},
 					series: [{
-						name: '5 de Sept 2017',
-						data: [6,2,3,1,5,1,6,5,4,3,2,11,10]
+						name: 'Cierre de Ticket',
+						data: data
 					}]
 				});
 			}
 
-			
-			
-			
-			function pintarCirculo(titulo){
-				Highcharts.chart('circle', {
-					chart: {
-						plotBackgroundColor: null,
-						plotBorderWidth: null,
-						plotShadow: false,
-						type: 'pie'
-					},
-					title: {
-						text: 'Top Casuísticas '+titulo
-					},
-					tooltip: {
-						pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-					},
-					plotOptions: {
-						pie: {
-							allowPointSelect: true,
-							cursor: 'pointer',
-							dataLabels: {
-								enabled: true,
-								format: '{point.y} tickets<br>{point.percentage:.1f} %',
-								style: {
-									color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-								}
-							},
-							showInLegend: true
-						}
-					},
-					series: [{
-						name: 'Brands',
-						colorByPoint: true,
-						data: [{
-							name: 'Canje error temporal - Cliente sin problemas',
-							y: 6
-						}, {
-							name: 'Paso a Prod - No genera OxC',
-							y: 24,
-							selected: true
-						}, {
-							name: 'Solucion de casos masivo',
-							y: 38
-						}, {
-							name: 'Error sin replicar',
-							y: 5
-						}, {
-							name: 'No creado en CRM',
-							y: 5
-						}, {
-							name: 'Otras',
-							y: 2
-						}]
-					}]
-				});
-
-
-
-			}
 		</script>
 
 	</head>
@@ -207,16 +149,10 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-7">
-
-
-
 					<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
-
 				</div>
 				<div class="col-md-5">
 					<div id="circle" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
 				</div>
 			</div>
 		</div>
