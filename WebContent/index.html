@@ -14,7 +14,7 @@
 		<meta name="viewport"
 			  content="width=device-width, initial-scale=1, maximum-scale=0.9">
 
-		<script src="js/getProyectos.js?v=0.251"></script>
+		<script src="js/getProyectos.js?v=0.253"></script>
 
 		<link type="text/css" rel="stylesheet" href="css/main.css?v=1.1">
 		<style>
@@ -44,6 +44,8 @@
 			var dataRobot=[];
 			
 			
+			var fechas=[];
+			
 			$(document).ready(
 				function() {
 					getProyectos();
@@ -69,9 +71,10 @@
 							point: {
 								events: {
 									click: function () {
-										// alert('Category: ' + this.category + ', value: ' + this.y);
+										console.info('Category: ' + this.category + ', value: ' + this.x);
+										console.info(fechas[this.category-1]);
 										//alert('Hola mundo');
-										window.open("grupos.html?dia=1","_self");
+										window.open("grupos.jsp?fecha="+fechas[this.x],"_self");
 									}
 								}
 							}

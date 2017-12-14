@@ -7,7 +7,7 @@ function getProyectos(){
 	$.ajax({
 		type: "GET",
 		dataType: "json",
-		url: "data/data3.json",
+		url: "data/data4.json",
 		cache:false,
 		async: false,
 		success: function(response){
@@ -16,6 +16,7 @@ function getProyectos(){
 			dataAcumulado=response.dataAcumulado;
 			dataManual=response.dataManual;
 			dataRobot=response.dataRobot;
+			fechas=response.fechas;
 			pintarGrafico();
 		},
 

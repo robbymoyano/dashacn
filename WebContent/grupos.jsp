@@ -16,7 +16,7 @@
 			  content="width=device-width, initial-scale=1, maximum-scale=0.9">
 
 		<script src="js/getGruposDia.js"></script>
-		<script src="js/getCasuistica.js?v=0.1"></script>
+		<script src="js/getCasuistica.js?v=0.2"></script>
 
 		<link type="text/css" rel="stylesheet" href="css/main.css?v=1.1">
 		<style>
@@ -37,82 +37,13 @@
 			}
 		</style>
 
-
 		<script>
-			var categories=[];
-			var data=[];
 			$(document).ready(
 				function() {
-					getGruposDias();
-					pintarGrafico();
-					getCasuisticas(categories[0]);
+					getGruposDias('<%= request.getParameter("fecha") %>');
+					getCasuisticas(categories[0],'<%= request.getParameter("fecha") %>');
 				});
-
-			function pintarGrafico(){
-				Highcharts.chart('container', {
-					chart: {
-						type: 'bar'
-					},
-					title: {
-						text: 'Cerrados por Grupo'
-					},
-					subtitle: {
-						text: getFechaActual()
-					},
-					xAxis: {
-						categories:categories,
-						title: {
-							text: null
-						}
-					},
-					yAxis: {
-						min: 0,
-						title: {
-							text: 'Tickets',
-							align: 'high'
-						},
-						labels: {
-							overflow: 'justify'
-						}
-					},
-					tooltip: {
-						valueSuffix: ' tickets'
-					},
-
-					plotOptions: {
-						bar: {
-							dataLabels: {
-								enabled: true
-							}
-						},
-						series: {
-
-							point: {
-								events: {
-									click: function () {
-										console.info('Category: ' + this.category + ', value: ' + this.y);
-										//alert('Hola mundo'+ this.category);
-										//pintarCirculo(this.category);
-										getCasuisticas(this.category);
-										//window.open("grupos.html?dia=1","_self");
-									}
-								}
-							}
-						}
-					},
-
-					credits: {
-						enabled: false
-					},
-					series: [{
-						name: 'Cierre de Ticket',
-						data: data
-					}]
-				});
-			}
-
 		</script>
-
 	</head>
 
 	<body>

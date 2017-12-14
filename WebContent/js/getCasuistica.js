@@ -1,17 +1,17 @@
 var dataCircular=[];
 
-function getCasuisticas(grupo){
+function getCasuisticas(grupo, fecha){
 	/*
 	* Autor: Robby Moyano
 	* Date: Diciembre 2017
 	* https://github.com/robbymoyano
 	*/
-	console.info("vamos a rescatar desde json para el grafico de torta");
+	console.info("Grafico de torta "+fecha);
 	console.info(grupo);
 	$.ajax({
 		type: "GET",
 		dataType: "json",
-		url: "resources/dash/grupos/"+grupo+"?fecha=2",
+		url: "resources/dash/grupos/"+grupo+"?fecha="+fecha,
 		cache:false,
 		async: false,
 		success: function(response){
@@ -24,7 +24,6 @@ function getCasuisticas(grupo){
 				dataCircular.push(myo);
 			});
 			pintarCirculo(grupo);
-
 		},
 
 		beforeSend: function () {
