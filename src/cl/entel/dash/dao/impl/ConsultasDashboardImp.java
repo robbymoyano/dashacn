@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 
 import cl.entel.dash.beans.GraficoCasuistica;
 import cl.entel.dash.beans.GraficoGruposDia;
+import cl.entel.dash.beans.RegistroMes;
 import cl.entel.dash.dao.Conection;
 import cl.entel.dash.dao.ConsultasDashboard;
 
@@ -82,6 +83,38 @@ public class ConsultasDashboardImp implements ConsultasDashboard {
 			log.fatal("SQLException: " + e.getMessage());
 		}
 		return lista;
+	}
+
+	@Override
+	public List<RegistroMes> getMes(int perfil, String fechaInicio,
+			String fechaFin) {
+		List<RegistroMes> lista=new ArrayList<RegistroMes>();
+		log.info(fechaInicio);
+		log.info(fechaFin);
+		try {
+			CallableStatement cStmt = con.prepareCall("{ CALL GET_MES("
+					+ perfil + ",'" + fechaInicio+"','"+fechaFin+"',?) } ");
+			
+			cStmt.registerOutParameter(1, OracleTypes.CURSOR);
+			log.info("apunto de ejecutar");
+			cStmt.execute();
+			ResultSet rs = (ResultSet) cStmt.getObject(1);
+
+			log.info("ya ejecutado");
+			while (rs.next()) {
+				
+				
+				RegistroMes r=new RegistroMes(rs.getString(1),rs.getString(2),rs.getInt(3));
+				lista.add(r);
+				log.info(r.toString());
+			}
+		}
+		catch (SQLException e) {
+			log.fatal("SQLException: " + e.getMessage());
+		}
+		
+		return lista;
+		
 	}
 
 }

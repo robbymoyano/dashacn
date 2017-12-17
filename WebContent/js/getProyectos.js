@@ -1,4 +1,4 @@
-function getProyectos(){
+function getProyectos(fechaActual){
 	/*
 	* Autor: Robby Moyano
 	* Date: Noviembre 2017
@@ -7,12 +7,13 @@ function getProyectos(){
 	$.ajax({
 		type: "GET",
 		dataType: "json",
-		url: "data/data4.json",
+		//url: "data/data4.json",
+		url:'resources/dash?fecha='+fechaActual,
 		cache:false,
 		async: false,
 		success: function(response){
-			subTitle=response.SubTitle;
-			Categorias=response.Categorias;
+			subTitle=response.subTitle;
+			Categorias=response.categorias;
 			dataAcumulado=response.dataAcumulado;
 			dataManual=response.dataManual;
 			dataRobot=response.dataRobot;

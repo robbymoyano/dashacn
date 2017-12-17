@@ -8,12 +8,22 @@ public class GraficoMes {
 
 	String subTitle;
 	String categorias[];
+	String fechas[];
 	int dataManual[];
 	int dataRobot[];
 	int dataAcumulado[];
 
 	
 	
+	public String[] getFechas() {
+		return fechas;
+	}
+
+	@XmlAttribute
+	public void setFechas(String[] fechas) {
+		this.fechas = fechas;
+	}
+
 	public GraficoMes() {
 		super();
 	}

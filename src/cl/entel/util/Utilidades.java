@@ -18,37 +18,27 @@ import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 
-
 public class Utilidades {
 	public static String directorio_properties;
 	public static PropertiesConfiguration properties = null;
 
-	
-	public static String getFechaActual(String formato) {
-		GregorianCalendar c = new GregorianCalendar();
-		XMLGregorianCalendar date2 = null;
-		String currentDate = null;
+	public static Calendar StringToCalendar(String fecha) {
+		Calendar c = new GregorianCalendar();
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		try {
-			date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
-			SimpleDateFormat formatter = new SimpleDateFormat(formato);
-			currentDate = formatter.format(date2.toGregorianCalendar().getTime());
-		} catch (DatatypeConfigurationException e) {
+			c.setTime(formatter.parse(fecha));
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		return currentDate;
+		return c;
 	}
-	
-	public static XMLGregorianCalendar getFechaActual() {
-		GregorianCalendar c = new GregorianCalendar();
-		XMLGregorianCalendar date2 = null;
-		try {
-			date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
-		} catch (DatatypeConfigurationException e) {
-			e.printStackTrace();
-		}
-		return date2;
+
+	public static String CalendarToString(Calendar fecha) {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		String salida;
+		salida = formatter.format(fecha.getTime());
+		return salida;
 	}
-	
 
 	public static XMLGregorianCalendar fechacero() {
 
@@ -79,16 +69,23 @@ public class Utilidades {
 		}
 		return date;
 	}
-	
-   
 
-    public static String getRandomParam(int largo) {
-        String result = RandomStringUtils.random(largo, false, true);
-        return result;
-    }
+	public static String getRandomParam(int largo) {
+		String result = RandomStringUtils.random(largo, false, true);
+		return result;
+	}
 	
-
-	
+	public static double getRandomBot(String dia) {
+		int i=Integer.parseInt(dia);
+		int factor=i%3;
+		switch(factor){
+		case 0:return 3.0;
+		case 1:return 3.2;
+		case 2: return 3.1;
+		default: return 3.3;
+		}
+		
+	}
 
 	public static String formatFecha(XMLGregorianCalendar fecha, String formato) {
 		Logger LOGGER = Logger.getLogger(Utilidades.class.getName());
@@ -203,8 +200,17 @@ public class Utilidades {
 	public static String getProperties(String key) {
 		inicializador();
 		String value = properties.getString(key);
-	   // log.info("Property [" + key + "][" + value + "]");
+		// log.info("Property [" + key + "][" + value + "]");
 		return value;
+	}
+
+	public static String getStringDia(int dia) {
+		if (dia > 10) {
+			String aux = String.valueOf(dia);
+			return String.valueOf("0" + aux);
+		} else {
+			return String.valueOf(dia);
+		}
 	}
 
 }

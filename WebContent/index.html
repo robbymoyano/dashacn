@@ -14,7 +14,7 @@
 		<meta name="viewport"
 			  content="width=device-width, initial-scale=1, maximum-scale=0.9">
 
-		<script src="js/getProyectos.js?v=0.253"></script>
+		<script src="js/getProyectos.js?v=0.254"></script>
 
 		<link type="text/css" rel="stylesheet" href="css/main.css?v=1.1">
 		<style>
@@ -34,7 +34,6 @@
 				padding-top: 70px;
 			}
 
-
 		</style>
 		<script>
 			var subTitle;
@@ -42,14 +41,30 @@
 			var dataAcumulado=[];
 			var dataManual=[];
 			var dataRobot=[];
-			
-			
 			var fechas=[];
-			
+
+			function getFechaActual() {
+				/*
+				* link: https://stackoverflow.com/questions/5250244/jquery-date-formatting
+				*/
+				var d = new Date();
+				var day = d.getDate();
+				var month = d.getMonth() + 1;
+				var year = d.getFullYear();
+				if (day < 10) {
+					day = "0" + day;
+				}
+				if (month < 10) {
+					month = "0" + month;
+				}
+				var date = day + "-" + month + "-" + year;
+
+				return date;
+			};
+
 			$(document).ready(
 				function() {
-					getProyectos();
-				
+					getProyectos(getFechaActual());
 				});
 
 
@@ -148,18 +163,16 @@
 						}
 					},
 
-					 {
-						 name: 'Robot',
-						 type: 'spline',
-						 data: dataRobot,
-						 tooltip: {
-							 valueSuffix: ''
-						 }
-					 }
-					]
+							 {
+								 name: 'Robot',
+								 type: 'spline',
+								 data: dataRobot,
+								 tooltip: {
+									 valueSuffix: ''
+								 }
+							 }
+							]
 				});
-
-
 			}
 		</script>
 
@@ -196,28 +209,15 @@
 			</div>
 		</nav>
 
-
 		<div class="container">
 			<div class="row">
-				<!--
-				<div class="col-md-12">
-					
-					<div class="pull-right">
-						Desde <input type="date"> al <input type="date" class=""> &#160; <button class="refresh pull-right">Refrescar</button><br>
-					</div>
-
-				</div>-->
-				
 				<div class="col-md-12">
 					<div class="alert alert-danger hidden" id="alerta">
 						<h5>
 							<b>Error</b>
 						</h5> Ha ocurrido un error al extraer los datos.
-
-
 					</div>
 					<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-					
 				</div>
 			</div>
 		</div>
