@@ -9,17 +9,25 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
-    <servlet>
-        <description>JAX-RS Tools Generated</description>
-        <servlet-name>rest</servlet-name>
-        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    
-    <servlet-mapping>
-        <servlet-name>rest</servlet-name>
-        <url-pattern>/resources/*</url-pattern>
-    </servlet-mapping>
-	
+  <servlet>
+    <description>JAX-RS Tools Generated</description>
+    <servlet-name>rest</servlet-name>
+    <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>rest</servlet-name>
+    <url-pattern>/resources/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CargaProperties</display-name>
+    <servlet-name>CargaProperties</servlet-name>
+    <servlet-class>cl.entel.util.CargaProperties</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CargaProperties</servlet-name>
+    <url-pattern>/CargaProperties</url-pattern>
+  </servlet-mapping>
 </web-app>

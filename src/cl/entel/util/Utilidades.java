@@ -156,7 +156,7 @@ public class Utilidades {
 
 	public static void inicializador() {
 
-		String RUTA_PROPERTIES = "./aplsEPCS/catalogoBolsasCanjeWS/config/";
+		String RUTA_PROPERTIES = "./aplsEPCS/DashAccenture/config/";
 		String NOMBRE_PROPERTIES = "config.properties";
 		if (Utilidades.properties == null) {
 			if (RUTA_PROPERTIES != null && existeDirectorio(RUTA_PROPERTIES)) {
