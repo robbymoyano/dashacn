@@ -137,12 +137,14 @@
 						shared: true
 					},
 					legend: {
-						layout: 'vertical',
-						align: 'left',
-						x: 120,
-						verticalAlign: 'top',
-						y: 100,
-						floating: true,
+						layout: 'horizontal',
+						align: 'center',
+						x: 0,
+						verticalAlign: 'bottom',
+						y: -10,
+						floating: false,
+						borderColor:'#7CB5EC',
+						borderWidth: 1,
 						backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
 					},
 					series: [{
@@ -217,7 +219,7 @@
 							<b>Error</b>
 						</h5> Ha ocurrido un error al extraer los datos.
 					</div>
-					<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+					<div id="container" style="min-width: 310px; height: 450px; margin: 0 auto"></div>
 				</div>
 			</div>
 		</div>
