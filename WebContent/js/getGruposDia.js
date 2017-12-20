@@ -2,18 +2,18 @@ var categories=[];
 var data=[];
 var fecha;
 
-function getGruposDias(fechaIn){
+function getGruposDias(fechaIn, perfil){
 	/*
 	* Autor: Robby Moyano
 	* Date: Diciembre 2017
 	* https://github.com/robbymoyano
 	*/
-	console.info("vamos a rescatar desde json");
+	console.info("Grupos por dia "+fechaIn+",perfil "+perfil);
 	fecha=fechaIn;
 	$.ajax({
 		type: "GET",
 		dataType: "json",
-		url: "resources/dash/grupos?fecha="+fechaIn,
+		url: "resources/dash/grupos?fecha="+fechaIn+"&perfil="+perfil,
 		cache:false,
 		async: false,
 		success: function(response){

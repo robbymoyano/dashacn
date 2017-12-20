@@ -29,13 +29,13 @@ public class ServiceRobot {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Path("/grupos")
-	public List<GraficoGruposDia> GrabaOperacion(
+	public List<GraficoGruposDia> gruposDias(@QueryParam("perfil") int perfil,
 			@QueryParam("fecha") String fecha) {
-		log.info("inicio " + fecha);
+		log.info("Grupos dias: Fecha " + fecha+", Perfil: "+perfil);
 		List<GraficoGruposDia> lista = new ArrayList<GraficoGruposDia>();
 		try {
 			ConsultasDashboardImp i = new ConsultasDashboardImp();
-			lista = i.getGruposPorDia(1, fecha);
+			lista = i.getGruposPorDia(perfil, fecha);
 		} catch (ClassNotFoundException e) {
 			log.error(e.getMessage());
 		} catch (SQLException e) {
@@ -66,9 +66,9 @@ public class ServiceRobot {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Path("/")
-	public GraficoMes obtieneMes(@QueryParam("fecha") String fecha) {
+	public GraficoMes obtieneMes(@QueryParam("perfil") int perfil,@QueryParam("fecha") String fecha) {
 
-		log.info("Incio grafico mes " + fecha);
+		log.info("Incio grafico mes " + fecha+", perfil "+perfil);
 		Calendar hoy = Utilidades.StringToCalendar(fecha);
 		hoy.set(Calendar.DAY_OF_MONTH, hoy.get(Calendar.DAY_OF_MONTH) - 1);
 		log.info("hoy: " + hoy.getTime());
@@ -94,7 +94,7 @@ public class ServiceRobot {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		lista2 = imp.getMes(1, Utilidades.CalendarToString(inicio),
+		lista2 = imp.getMes(perfil, Utilidades.CalendarToString(inicio),
 				Utilidades.CalendarToString(hoy));
 		// lista2.add(new RegistroMes("28", "28-11-2017", 24));
 		// lista2.add(new RegistroMes("03", "03-12-2017", 60));
@@ -148,7 +148,9 @@ public class ServiceRobot {
 			acu = acu + dataManual[i];
 			AcumuladoManual[i] = acu;
 			acuBot = acuBot + dataRobotAux[i];
-			dataRobot[i] = acuBot;
+			if(perfil==1)
+				dataRobot[i] = acuBot;
+			else dataRobot[i]=0;
 		}
 
 		String fechas[] = new String[lista.size()];

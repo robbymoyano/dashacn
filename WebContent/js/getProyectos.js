@@ -1,4 +1,4 @@
-function getProyectos(fechaActual){
+function getProyectos(fechaActual,perfil){
 	/*
 	* Autor: Robby Moyano
 	* Date: Noviembre 2017
@@ -8,7 +8,7 @@ function getProyectos(fechaActual){
 		type: "GET",
 		dataType: "json",
 		//url: "data/data4.json",
-		url:'resources/dash?fecha='+fechaActual,
+		url:'resources/dash?fecha='+fechaActual+'&perfil='+perfil,
 		cache:false,
 		async: false,
 		success: function(response){

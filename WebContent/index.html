@@ -14,7 +14,7 @@
 		<meta name="viewport"
 			  content="width=device-width, initial-scale=1, maximum-scale=0.9">
 
-		<script src="js/getProyectos.js?v=0.254"></script>
+		<script src="js/getProyectos.js?v=0.280"></script>
 
 		<link type="text/css" rel="stylesheet" href="css/main.css?v=1.1">
 		<style>
@@ -42,6 +42,7 @@
 			var dataManual=[];
 			var dataRobot=[];
 			var fechas=[];
+			var perfil=1;
 
 			function getFechaActual() {
 				/*
@@ -64,7 +65,7 @@
 
 			$(document).ready(
 				function() {
-					getProyectos(getFechaActual());
+					getProyectos(getFechaActual(),perfil);
 				});
 
 
@@ -89,7 +90,7 @@
 										console.info('Category: ' + this.category + ', value: ' + this.x);
 										console.info(fechas[this.category-1]);
 										//alert('Hola mundo');
-										window.open("grupos.jsp?fecha="+fechas[this.x],"_self");
+										window.open("grupos.jsp?fecha="+fechas[this.x]+"&perfil="+perfil,"_self");
 									}
 								}
 							}

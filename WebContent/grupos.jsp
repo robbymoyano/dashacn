@@ -15,7 +15,7 @@
 		<meta name="viewport"
 			  content="width=device-width, initial-scale=1, maximum-scale=0.9">
 
-		<script src="js/getGruposDia.js"></script>
+		<script src="js/getGruposDia.js?v=0.20"></script>
 		<script src="js/getCasuistica.js?v=0.2"></script>
 
 		<link type="text/css" rel="stylesheet" href="css/main.css?v=1.1">
@@ -40,7 +40,7 @@
 		<script>
 			$(document).ready(
 				function() {
-					getGruposDias('<%= request.getParameter("fecha") %>');
+					getGruposDias('<%= request.getParameter("fecha") %>','<%= request.getParameter("perfil") %>');
 					getCasuisticas(categories[0],'<%= request.getParameter("fecha") %>');
 				});
 		</script>
