@@ -32,6 +32,17 @@ public class Utilidades {
 		}
 		return c;
 	}
+	
+	public static Calendar StringToCalendarLongFormatt(String fecha) {
+		Calendar c = new GregorianCalendar();
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+		try {
+			c.setTime(formatter.parse(fecha));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return c;
+	}
 
 	public static String CalendarToString(Calendar fecha) {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");

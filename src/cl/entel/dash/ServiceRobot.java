@@ -19,6 +19,7 @@ import cl.entel.dash.beans.GraficoGruposDia;
 import cl.entel.dash.beans.GraficoMes;
 import cl.entel.dash.beans.RegistroMes;
 import cl.entel.dash.dao.impl.ConsultasDashboardImp;
+import cl.entel.dash.dao.impl.ConsultasSLAImp;
 import cl.entel.util.Utilidades;
 
 @Path("/dash")
@@ -167,9 +168,11 @@ public class ServiceRobot {
 		return mes;
 	}
 
-	public static void main(String args[]) throws ClassNotFoundException,
-			SQLException {
-		System.out.println(Utilidades.getRandomBot("01"));
+	public static void main(String args[])  
+			 {
+		ConsultasSLAImp i=new ConsultasSLAImp();
+		i.isSLA("04-12-2017 21:15:02", "04-12-2017 22:30:15", "EU SOPORTE HOGAR");
+		
 	}
 
 }

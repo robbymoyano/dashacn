@@ -12,4 +12,6 @@ public interface ConsultasDashboard {
 	public List<GraficoCasuistica> getCasuisticas (String grupo, String fecha);
 	
 	public List<RegistroMes> getMes (int perfil, String fechaInicio, String fechaFin);
+	
+	
 }
