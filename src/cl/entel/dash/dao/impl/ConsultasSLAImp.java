@@ -16,9 +16,19 @@ public class ConsultasSLAImp implements ConsultasSla {
 	public Sla isSLA(String fechaInicio, String fechaFin, String grupoResolutor) {
 		// TODO Auto-generated method stub
 		
+		String valorSLA=Utilidades.hashGrupos.get(grupoResolutor);
+		double doble;
+		try{
+	     doble = Double.parseDouble(valorSLA);
+		}
+		catch (Exception e){
+			
+			doble=16.0;
+		}
+		
 		bean.setInicio(Utilidades.StringToCalendarLongFormatt(fechaInicio));
 		bean.setFin(Utilidades.StringToCalendarLongFormatt(fechaFin));
-		bean.setHorasSla(16.5);
+		bean.setHorasSla(doble);
 		log.info(bean.toString());
 		
 		int i=this.getDiasHabiles();

@@ -30,6 +30,11 @@
     <servlet-name>CargaProperties</servlet-name>
     <url-pattern>/CargaProperties</url-pattern>
   </servlet-mapping>
+    <servlet>
+		<servlet-name>CargaGrupo</servlet-name>
+		<servlet-class>cl.entel.util.CargaGrupos</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
     <filter>
         <filter-name>CorsFilter</filter-name>
         <filter-class>com.accenture.filter.CorsFilter</filter-class>

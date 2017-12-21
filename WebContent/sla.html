@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cierre de Tickets</title>
+		<meta charset="UTF-8">
+		<script src="jquery-2.2.1.min.js"></script>
+
+		<script src="Highcharts-4/js/highcharts.js"></script>
+		<script src="Highcharts-4/js/highcharts-more.js"></script>
+		<script src="Highcharts-4/js/modules/exporting.js"></script>
+
+		<link href="dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+		<script src="dist/js/bootstrap.js"></script>
+		<meta name="viewport"
+			  content="width=device-width, initial-scale=1, maximum-scale=0.9">
+
+
+		<style>
+			#logo{
+				position: relative;
+				top:-14px;
+			}
+			#grafico{
+				width: 100%;
+				height: 430; /* 180 cargo fijo +  50 por banda= 250=430*/
+			}
+			.col-md-12{
+				padding: 0px !important;
+			}
+
+			body{
+				padding-top: 70px;
+			}
+			.separador{
+				height: 30px;
+			}
+
+		</style>
+		<script>
+			$(document).ready(
+				function() {
+					$("#calcular").click(
+						function(){
+							llamadaAjax();
+						});
+				});
+			
+			function llamadaAjax(){
+				var inicio=$("#inicio").val();
+				var fin=$("#fin").val();
+				var grupo=$("#grupo").val();
+
+				console.info(grupo);
+				$.ajax({
+					type: "GET",
+					dataType: "json",
+
+					url:'resources/sla/'+grupo+'?fechaInicio='+inicio+'&fechaFin='+fin,
+					cache:false,
+					async: false,
+					success: function(response){
+						console.info("Horas Consumiadas: "+response.horasConsumidas);
+						console.info("Horas SLA: "+response.horasSla);
+						console.info("Dentro de SLA: "+response.isDentroSla);
+					},
+
+					beforeSend: function () {
+					},
+
+					error:function(){
+						$("#alerta").removeClass("hidden");
+					}
+				});
+			}
+
+		</script>
+
+	</head>
+
+	<body>
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+							data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+							aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand"> 
+						<img src="imag/logo3.png" id="logo" class="icon-bar" width="130px">
+					</a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="sla.html">Test de SLA</a></li>
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="http://www.accenture.com" target="_blank">Powered by Accenture</a>
+						</li>
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+		</nav>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<code>http://10.43.24.100:7001/panelcontrolcrm/resources/sla/EU GESTOR WEB?fechaInicio=27-12-2017 23:09:23&amp;fechaFin=28-12-2017 12:00:34</code>
+				</div>
+			</div>
+			<div class="separador"></div>
+			<div class="row">
+				<div class="col-sm-6">
+					EU GESTOR, 04-12-2017 14:02:02 <br>
+					<input id="inicio" placeholder="inicio dd-MM-yyyy hh:mm:ss" /><br>
+					<input id="fin" placeholder="fin dd-MM-yyyy hh:mm:ss" /><br>
+					<input id="grupo" placeholder="EU SOPORTE HOGAR" /><br>
+					<button id="calcular">Calcular</button>
+				</div>
+
+				<div class="col-sm-6">
+					Resultados
+					<p id="Resultados">
+					</p>
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>

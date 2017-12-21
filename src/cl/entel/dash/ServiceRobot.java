@@ -82,6 +82,12 @@ public class ServiceRobot {
 		// ahora ya tengo los 2 intervalos de fechas
 		log.info("[inicio " + inicio.getTime() + "]|[final " + hoy.getTime()
 				+ "]");
+		
+		GraficoMes mes = new GraficoMes();
+		mes.setSubTitle("Del " + Utilidades.CalendarToString(inicio) + " al "
+				+ Utilidades.CalendarToString(hoy));
+
+		
 		List<RegistroMes> lista = new ArrayList<RegistroMes>();
 
 		List<RegistroMes> lista2 = new ArrayList<RegistroMes>();
@@ -127,10 +133,7 @@ public class ServiceRobot {
 		// hasta aqui tenemos la lista con 1 mes completo, debemos compararla
 		// con la del sp
 
-		GraficoMes mes = new GraficoMes();
-		mes.setSubTitle("Del " + Utilidades.CalendarToString(inicio) + " al "
-				+ Utilidades.CalendarToString(hoy));
-
+		
 		String categorias[] = new String[lista.size()];
 		for (int i = 0; i < lista.size(); i++) {
 			categorias[i] = lista.get(i).getDia();

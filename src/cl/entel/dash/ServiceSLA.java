@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import cl.entel.dash.beans.Sla;
 import cl.entel.dash.dao.impl.ConsultasSLAImp;
+import cl.entel.util.Utilidades;
 
 
 @Path("/sla")
@@ -27,6 +28,7 @@ public class ServiceSLA {
 			@PathParam("grupo") String grupo) {
 		
 		log.info("Calcula sla [GRUPO "+grupo+"]|[INI "+fechaInicio+"]|[FIN "+fechaFin+"]");
+		log.info("Sla del grupo: "+Utilidades.hashGrupos.get(grupo));
 		ConsultasSLAImp i=new ConsultasSLAImp();
 		Sla bean=i.isSLA(fechaInicio, fechaFin, grupo);
 		

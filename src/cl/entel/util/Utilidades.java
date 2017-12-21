@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.StringTokenizer;
 
@@ -21,6 +22,7 @@ import org.apache.log4j.Logger;
 public class Utilidades {
 	public static String directorio_properties;
 	public static PropertiesConfiguration properties = null;
+	public static HashMap<String, String> hashGrupos = new HashMap<String, String>();
 
 	public static Calendar StringToCalendar(String fecha) {
 		Calendar c = new GregorianCalendar();
