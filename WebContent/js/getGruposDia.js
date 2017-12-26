@@ -13,7 +13,7 @@ function getGruposDias(fechaIn, perfil){
 	$.ajax({
 		type: "GET",
 		dataType: "json",
-		url: "resources/dash/grupos?fecha="+fechaIn+"&perfil="+perfil,
+		url: "http://10.43.24.100:7001/DashboardRest/resources/dash/grupos?fecha="+fechaIn+"&perfil="+perfil,
 		cache:false,
 		async: false,
 		success: function(response){

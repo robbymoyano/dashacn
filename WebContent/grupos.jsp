@@ -15,8 +15,8 @@
 		<meta name="viewport"
 			  content="width=device-width, initial-scale=1, maximum-scale=0.9">
 
-		<script src="js/getGruposDia.js?v=0.20"></script>
-		<script src="js/getCasuistica.js?v=0.2"></script>
+		<script src="js/getGruposDia.js?v=0.21"></script>
+		<script src="js/getCasuistica.js?v=0.21"></script>
 
 		<link type="text/css" rel="stylesheet" href="css/main.css?v=1.1">
 		<style>

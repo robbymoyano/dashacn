@@ -11,7 +11,7 @@ function getCasuisticas(grupo, fecha){
 	$.ajax({
 		type: "GET",
 		dataType: "json",
-		url: "resources/dash/grupos/"+grupo+"?fecha="+fecha,
+		url: "http://10.43.24.100:7001/DashboardRest/resources/dash/grupos/"+grupo+"?fecha="+fecha,
 		cache:false,
 		async: false,
 		success: function(response){

@@ -8,7 +8,7 @@ function getProyectos(fechaActual,perfil){
 		type: "GET",
 		dataType: "json",
 		//url: "data/data4.json",
-		url:'resources/dash?fecha='+fechaActual+'&perfil='+perfil,
+		url:'http://10.43.24.100:7001/DashboardRest/resources/dash?fecha='+fechaActual+'&perfil='+perfil,
 		cache:false,
 		async: false,
 		success: function(response){

@@ -4,8 +4,6 @@ El proyecto consiste en un Dashboard para representar los grupos CRM Movil de nu
 
 ### Tecnología ###
 
-* Java EE
-* Web Service Rest
 * HighCharts
 * Bootstrap v4
 * Jquery
