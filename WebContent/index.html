@@ -40,6 +40,7 @@
 			var Categorias=[];
 			var dataAcumulado=[];
 			var dataManual=[];
+			var fueraSLA=[];
 			var dataRobot=[];
 			var fechas=[];
 			var perfil=1;
@@ -107,6 +108,15 @@
 						crosshair: true
 					}],
 					yAxis: [{ // Primary yAxis
+						
+							stackLabels: {
+            enabled: true,
+            style: {
+                fontWeight: 'bold',
+                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            }
+        },
+						
 						labels: {
 							format: '{value}',
 							style: {
@@ -120,6 +130,14 @@
 							}
 						}
 					}, { // Secondary yAxis
+						
+							stackLabels: {
+            enabled: true,
+            style: {
+                fontWeight: 'bold',
+                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            }
+        },
 						title: {
 							text: 'Tickets diarios',
 							style: {
@@ -148,33 +166,53 @@
 						borderWidth: 1,
 						backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
 					},
-					series: [{
-						name: 'Ticket por dia',
-						type: 'column',
-						yAxis: 1,
-						data: dataManual,
-						tooltip: {
-							valueSuffix: ''
-						}
-
-					}, {
-						name: 'Acumulado',
-						type: 'spline',
-						data: dataAcumulado,
-						tooltip: {
-							valueSuffix: ''
+					
+					plotOptions: {
+						series: {
+							stacking: 'normal'
 						}
 					},
+					
+					series: [
+						{
+							name: 'Fuera SLA',
+							type: 'column',
+							yAxis: 1,
+							data: fueraSLA,
+							color: '#ff4949',
+							tooltip: {
+								valueSuffix: ''
+							}
+						},
 
-							 {
-								 name: 'Robot',
-								 type: 'spline',
-								 data: dataRobot,
-								 tooltip: {
-									 valueSuffix: ''
-								 }
-							 }
-							]
+						{
+							name: 'Dentro SLA',
+							type: 'column',
+							yAxis: 1,
+							data: dataManual,
+							tooltip: {
+								valueSuffix: ''
+							}
+						},
+						
+						{
+							name: 'Acumulado',
+							type: 'spline',
+							data: dataAcumulado,
+							tooltip: {
+								valueSuffix: ''
+							}
+						},
+
+						{
+							name: 'Robot',
+							type: 'spline',
+							data: dataRobot,
+							tooltip: {
+								valueSuffix: ''
+							}
+						}
+					]
 				});
 			}
 		</script>

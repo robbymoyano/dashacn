@@ -17,6 +17,7 @@ function getProyectos(fechaActual,perfil){
 			dataAcumulado=response.dataAcumulado;
 			dataManual=response.dataManual;
 			dataRobot=response.dataRobot;
+			fueraSLA=response.fueraSLA;
 			fechas=response.fechas;
 			pintarGrafico();
 		},
